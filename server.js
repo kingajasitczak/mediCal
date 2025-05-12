@@ -55,6 +55,16 @@ app.get('/main-view', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'main-view.html'));
 });
 
+app.get('/user-data', (req, res) => {
+  if (basicSubmissions.length > 0) {
+    const latest = basicSubmissions[basicSubmissions.length - 1];  // Get the latest submission
+    res.json({ physicalActivity: latest.physicalActivity });  // Send the physicalActivity data as a response
+	console.log(latest.physicalActivity);
+  } else {
+    res.json({ physicalActivity: null });  // If no submissions, send null
+  }
+});
+
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);
 });

@@ -17,12 +17,21 @@
   </div>
 
   <script>
+  console.log("xd");
     const calendar = document.getElementById('calendar');
     const monthYear = document.getElementById('monthYear');
 
     let currentDate = new Date();
+    let userActivity = null; // Variable to store the fetched physical activity value
 
-    function renderCalendar(date) {
+    // Fetch the user's physical activity from the backend
+    fetch('/user-data')
+      .then(res => res.json())
+      .then(data => {
+        console.log('User Physical Activity:', data.physicalActivity); // Log the fetched physical activity data
+        userActivity = data.physicalActivity; // Store the physical activity
+      });
+	      function renderCalendar(date) {
       const year = date.getFullYear();
       const month = date.getMonth();
       const firstDay = new Date(year, month, 1).getDay();
@@ -45,8 +54,28 @@
         row += "<td></td>";
       }
 
+      // Add each day to the calendar and color it based on the user's physical activity
       for (let day = 1; day <= daysInMonth; day++) {
-        row += `<td>${day}</td>`;
+        let dayClass = "";  // Default to no special class
+
+        // If user has physical activity marked as "yes", color certain dates
+        if (userActivity === "yes") {
+          // For demonstration, let's color the 15th day if physical activity is "yes"
+          if (day === 15) {
+            dayClass = "badanie-date";  // Mark this day for special coloring
+          }
+        }
+		else
+		{
+			if (day === 20) 
+			{
+            dayClass = "badanie-date";  // Mark this day for special coloring
+			}
+		}
+
+        // Add the day to the row, with the corresponding class for special styling
+        row += `<td class="${dayClass}">${day}</td>`;
+
         if ((firstDay + day) % 7 === 0) {
           row += "</tr><tr>";
         }
@@ -67,6 +96,14 @@
     }
 
     renderCalendar(currentDate);
+
   </script>
+    <style>
+    /* Add CSS for coloring the specific day (for example the 15th day) */
+    .badanie-date {
+      background-color: lightgreen; /* Color the active days with light green */
+    }
+  </style>
+
 </body>
 </html>
