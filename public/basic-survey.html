@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Basic Survey</title>
+</head>
+<body>
+  <div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+    <form action="/submit-b" method="POST">
+      <h1 style="text-align: center;">Basic Survey</h1>
+
+      <div>
+        <p><strong>Please specify your gender:</strong></p>
+        <label><input type="radio" name="gender" value="male"> Male</label><br>
+        <label><input type="radio" name="gender" value="female"> Female</label>
+      </div>
+      <br>
+
+      <div>
+        <p><strong>How old are you?</strong></p>
+        <select id="ageSelect" name="age">
+          <option value="">Select</option>
+        </select>
+      </div>
+      <br>
+
+      <div>
+        <p><strong>Are you physically active (≥3 times a week)?</strong></p>
+        <label><input type="radio" name="active" value="yes"> Yes</label><br>
+        <label><input type="radio" name="active" value="no"> No</label>
+      </div>
+      <br>
+
+      <div>
+        <p><strong>Do you smoke cigarettes or e-cigarettes?</strong></p>
+        <label><input type="radio" name="smoke" value="yes"> Yes</label><br>
+        <label><input type="radio" name="smoke" value="no"> No</label>
+      </div>
+      <br>
+
+      <div>
+        <p><strong>How tall are you? (cm)</strong></p>
+        <select id="heightSelect" name="height">
+          <option value="">Select</option>
+        </select>
+      </div>
+      <br>
+
+      <div>
+        <p><strong>Please specify your weight (kg):</strong></p>
+        <select id="weightSelect" name="weight">
+          <option value="">Select</option>
+        </select>
+      </div>
+	  <br>
+	  
+	  <div style="text-align: center;">
+			<button type="submit">Send</button>
+      </div>
+	  
+    </form>
+  </div>
+
+  <script>
+    function populateSelect(id, min, max) {
+      const select = document.getElementById(id);
+      for (let i = min; i <= max; i++) {
+        const option = document.createElement("option");
+        option.value = i;
+        option.text = i;
+        select.appendChild(option);
+      }
+    }
+
+    populateSelect("ageSelect", 0, 100);
+    populateSelect("heightSelect", 0, 220);
+    populateSelect("weightSelect", 0, 150);
+  </script>
+</body>
+</html>
