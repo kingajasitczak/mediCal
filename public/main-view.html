@@ -3,12 +3,47 @@
 <head>
   <meta charset="UTF-8">
   <title>Medical Calendar</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      table-layout: fixed;
+      width: 500px;
+      height: 400px;
+      font-size: 20px;
+      text-align: center;
+    }
+
+    th, td {
+      border: 1px solid black;
+      padding: 5px;
+      vertical-align: top;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      white-space: normal;
+      height: 60px;
+      width: calc(100% / 7);
+    }
+
+    .badanie-date {
+      background-color: lightgreen;
+    }
+
+    .day-number {
+      font-weight: bold;
+    }
+
+    .note {
+      font-size: 11px;
+      display: block;
+      margin-top: 5px;
+    }
+  </style>
 </head>
 <body>
   <div style="display: flex; flex-direction: column; align-items: center; margin-top: 40px;">
     <h1>Welcome! Here's your medical calendar</h1>
     <h2 id="monthYear" style="font-size: 24px;"></h2>
-    <table id="calendar" border="1" cellspacing="0" cellpadding="10" style="font-size: 20px; border-collapse: collapse; text-align: center; width: 500px; height: 400px;"></table>
+    <table id="calendar"></table>
     <br>
     <div>
       <button onclick="prevMonth()" style="font-size: 18px; padding: 8px 12px;">&larr; Back</button>
@@ -17,21 +52,33 @@
   </div>
 
   <script>
-  console.log("xd");
-    const calendar = document.getElementById('calendar');
-    const monthYear = document.getElementById('monthYear');
+    const calendar = document.getElementById("calendar");
+    const monthYear = document.getElementById("monthYear");
 
     let currentDate = new Date();
-    let userActivity = null; // Variable to store the fetched physical activity value
+    let userActivity = null;
+    let bmi = null;
+    let age = null;
+    let gender = null;
+    const now = new Date();
 
-    // Fetch the user's physical activity from the backend
-    fetch('/user-data')
-      .then(res => res.json())
-      .then(data => {
-        console.log('User Physical Activity:', data.physicalActivity); // Log the fetched physical activity data
-        userActivity = data.physicalActivity; // Store the physical activity
+    fetch("/user-data")
+      .then((res) => res.json())
+      .then((data) => {
+		if (data.error) {
+			console.error(data.error);
+		} else {
+			console.log('User survey data:', data);
+			userActivity = data.physicalActivity;
+			age = Number(data.age);
+			bmi = Number(data.bmi || null);
+			gender = data.gender;
+			renderCalendar(currentDate);
+		}
+        
       });
-	      function renderCalendar(date) {
+
+    function renderCalendar(date) {
       const year = date.getFullYear();
       const month = date.getMonth();
       const firstDay = new Date(year, month, 1).getDay();
@@ -46,43 +93,68 @@
       calendar.innerHTML = "";
 
       const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-      let headerRow = "<tr>" + days.map(d => `<th>${d}</th>`).join("") + "</tr>";
+      let headerRow = "<tr>" + days.map((d) => `<th>${d}</th>`).join("") + "</tr>";
       calendar.innerHTML += headerRow;
 
       let row = "<tr>";
+      let dayOfWeek = firstDay;
+
       for (let i = 0; i < firstDay; i++) {
         row += "<td></td>";
       }
 
-      // Add each day to the calendar and color it based on the user's physical activity
       for (let day = 1; day <= daysInMonth; day++) {
-        let dayClass = "";  // Default to no special class
+        let dayClass = "";
+        let name = "";
 
-        // If user has physical activity marked as "yes", color certain dates
-        if (userActivity === "yes") {
-          // For demonstration, let's color the 15th day if physical activity is "yes"
-          if (day === 15) {
-            dayClass = "badanie-date";  // Mark this day for special coloring
+        const currentLoopDate = new Date(year, month, day);
+        const monthsDiff =
+          (currentLoopDate.getFullYear() - now.getFullYear()) * 12 +
+          (currentLoopDate.getMonth() - now.getMonth());
+
+        if (currentLoopDate.getDate() === now.getDate() && monthsDiff === 6) {
+          if (age >= 18 && age <= 24 && bmi > 26) {
+            dayClass = "badanie-date";
+            name = "Morfologia, mocz, glukoza";
           }
         }
-		else
-		{
-			if (day === 20) 
-			{
-            dayClass = "badanie-date";  // Mark this day for special coloring
-			}
-		}
 
-        // Add the day to the row, with the corresponding class for special styling
-        row += `<td class="${dayClass}">${day}</td>`;
+        if (currentLoopDate.getDate() === now.getDate() && monthsDiff === 12) {
+          if (age >= 18 && age <= 24) {
+            if (bmi < 26) {
+              dayClass = "badanie-date";
+              name = "Morfologia, mocz, glukoza";
+            }
+            if (gender === "female") {
+              dayClass = "badanie-date";
+              name += (name ? ", " : "") + "Badanie ginekologiczne";
+            }
+          }
+        }
 
-        if ((firstDay + day) % 7 === 0) {
-          row += "</tr><tr>";
+        if (dayClass === "badanie-date") {
+          row += `<td class="${dayClass}"><span class="day-number">${day}</span><br><span class="note">${name}</span></td>`;
+        } else {
+          row += `<td><span class="day-number">${day}</span></td>`;
+        }
+
+        dayOfWeek++;
+
+        if (dayOfWeek % 7 === 0) {
+          row += "</tr>";
+          calendar.innerHTML += row;
+          row = "<tr>";
         }
       }
 
-      row += "</tr>";
-      calendar.innerHTML += row;
+      if (dayOfWeek % 7 !== 0) {
+        const remainingCells = 7 - (dayOfWeek % 7);
+        for (let i = 0; i < remainingCells; i++) {
+          row += "<td></td>";
+        }
+        row += "</tr>";
+        calendar.innerHTML += row;
+      }
     }
 
     function nextMonth() {
@@ -94,16 +166,6 @@
       currentDate.setMonth(currentDate.getMonth() - 1);
       renderCalendar(currentDate);
     }
-
-    renderCalendar(currentDate);
-
   </script>
-    <style>
-    /* Add CSS for coloring the specific day (for example the 15th day) */
-    .badanie-date {
-      background-color: lightgreen; /* Color the active days with light green */
-    }
-  </style>
-
 </body>
 </html>
