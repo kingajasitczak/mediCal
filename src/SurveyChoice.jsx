@@ -51,7 +51,7 @@ export default function SurveyChoice() {
               <h2 className="[font-family:'Roboto-ExtraBold',Helvetica] font-extrabold text-[#13313f] text-5xl tracking-[0] leading-[normal]">
                 {option.title}
               </h2>
-              <p className="mt-16 px-10 [font-family:'Roboto-Light',Helvetica] font-light text-[#13313f] text-[32px] tracking-[0] leading-[normal]">
+              <p className="mt-10 px-10 [font-family:'Roboto-Light',Helvetica] font-light text-[#13313f] text-[32px] tracking-[0] leading-[normal]">
                 {option.description}
               </p>
             </div>
