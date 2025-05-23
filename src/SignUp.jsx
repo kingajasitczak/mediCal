@@ -55,6 +55,20 @@ export default function SignUp() {
             </div>
           </div>
 
+
+          {/* Email */}
+          <div className="flex flex-col">
+            <label className="mb-2 text-[#13313f] text-2xl font-light [font-family:'Roboto-Light',Helvetica]">Email</label>
+            <div className="relative">
+              <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-[#13313f]" />
+              <input
+                type="email"
+                placeholder="Type your email"
+                className="pl-10 h-[72px] bg-white border-0 border-b border-black rounded-none text-xl font-extralight text-[#13313f] [font-family:'Roboto-ExtraLight',Helvetica] w-full"
+              />
+            </div>
+          </div>
+
           {/* Password */}
           <div className="flex flex-col">
             <label className="mb-2 text-[#13313f] text-2xl font-light [font-family:'Roboto-Light',Helvetica]">Password</label>
@@ -75,19 +89,6 @@ export default function SignUp() {
                   <Eye className="h-4 w-5 text-[#13313f]" />
                 )}
               </div>
-            </div>
-          </div>
-
-          {/* Email */}
-          <div className="flex flex-col">
-            <label className="mb-2 text-[#13313f] text-2xl font-light [font-family:'Roboto-Light',Helvetica]">Email</label>
-            <div className="relative">
-              <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-[#13313f]" />
-              <input
-                type="email"
-                placeholder="Type your email"
-                className="pl-10 h-[72px] bg-white border-0 border-b border-black rounded-none text-xl font-extralight text-[#13313f] [font-family:'Roboto-ExtraLight',Helvetica] w-full"
-              />
             </div>
           </div>
 
