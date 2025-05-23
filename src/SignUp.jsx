@@ -29,6 +29,13 @@ export default function SignUp() {
         backgroundSize: "50% 50%",
       }}
     >
+      <div className="absolute top-0 left-0">
+          <img
+            src="/MediCal.png"
+            alt="Medical Logo"
+            className="w-[239px] h-[193px] object-cover"
+          />
+        </div>
       <div className="w-[1070px] bg-[#ffffffe6] rounded-[50px] shadow-[0px_6px_7.5px_8px_#00000040] px-12 py-16">
         <h1 className="text-[64px] text-center font-extrabold text-[#13313f] mb-12 [font-family:'Roboto-ExtraBold',Helvetica]">
           Sign up
@@ -121,7 +128,7 @@ export default function SignUp() {
         {/* Login Link */}
         <div className="mt-12 text-center text-2xl [font-family:'Roboto-Light',Helvetica]">
           <span className="text-[#13313f] font-light">Already have an account? </span>
-          <Link to="/" className="text-[#186f9b] font-medium [font-family:'Roboto-Medium',Helvetica]">
+          <Link to="/" className="font-medium text-[#186f9b]">
             Login
           </Link>
         </div>

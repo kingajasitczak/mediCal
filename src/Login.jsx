@@ -9,7 +9,7 @@ export default function Login() {
         {/* Medical Logo */}
         <div className="absolute top-0 left-0">
           <img
-            src=""
+            src="/MediCal.png"
             alt="Medical Logo"
             className="w-[239px] h-[193px] object-cover"
           />

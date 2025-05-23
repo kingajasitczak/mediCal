@@ -47,7 +47,7 @@ export default function BasicSurvey() {
       }}
     >
       <div className="w-full max-w-[710px] py-20 px-8">
-        <img src="" alt="Medical Logo" className="w-[239px] h-[193px] object-cover mb-6" />
+        <img src="/MediCal.png" alt="Medical Logo" className="w-[239px] h-[193px] object-cover mb-6 block mx-auto" />
 
         <h1 className="text-white text-[64px] font-extrabold text-center mb-16">Basic Survey</h1>
 

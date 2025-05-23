@@ -27,7 +27,7 @@ export default function SurveyChoice() {
         <img
           className="absolute w-[239px] h-[193px] top-0 left-0 object-cover"
           alt="Medical"
-          src=""
+          src="/MediCal.png"
         />
 
         {/* Welcome text */}
