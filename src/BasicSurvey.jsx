@@ -1,7 +1,9 @@
 import React from "react";
+import { useNavigate } from "react-router-dom"; // <== dodane
 import { Activity } from "lucide-react";
 
 export default function BasicSurvey() {
+  const navigate = useNavigate();
   const questions = [
     {
       id: "gender",
@@ -32,6 +34,9 @@ export default function BasicSurvey() {
       title: "Please specify your weight (kg):",
     },
   ];
+
+  const handleFinish = () => {
+    navigate("/calendar"); };
 
   return (
     <div className="flex justify-center w-full min-h-screen bg-white bg-no-repeat bg-cover bg-center"
@@ -126,6 +131,16 @@ export default function BasicSurvey() {
               <option key={i}>{40 + i}</option>
             ))}
           </select>
+        </div>
+
+        {/* Finish Button */}
+        <div className="flex justify-center mt-8">
+          <button
+            onClick={handleFinish}
+            className="px-8 py-3 bg-white text-[#13313f] text-[32px] font-extrabold rounded-[20px] shadow-lg hover:opacity-90 transition"
+          >
+            FINISH
+          </button>
         </div>
       </div>
     </div>

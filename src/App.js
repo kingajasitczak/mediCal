@@ -5,6 +5,7 @@ import SignUp from "./SignUp";
 import SurveyChoice from "./SurveyChoice";
 import BasicSurvey from "./BasicSurvey";
 import ExtendedSurvey from "./ExtendedSurvey"; // ⬅️ Add this
+import CalenderView from "./CalenderView";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/survey-choice" element={<SurveyChoice />} />
         <Route path="/basic-survey" element={<BasicSurvey />} />
         <Route path="/extended-survey" element={<ExtendedSurvey />} /> {/* ⬅️ New route */}
+        <Route path="/calendar" element={<CalenderView />} />
       </Routes>
     </Router>
   );
