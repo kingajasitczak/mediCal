@@ -11,6 +11,8 @@ import AboutUs from "./AboutUs";
 import Articles from "./Articles";
 import Article1 from "./Article1";
 import Article3 from "./Article3";
+import Article2 from "./Article2";
+
 
 function App() {
   return (
@@ -27,6 +29,7 @@ function App() {
         <Route path="/articles" element={<Articles/>} />
         <Route path="/article1" element={<Article1/>} />
         <Route path="/article3" element={<Article3/>} />
+        <Route path="/article2" element={<Article2/>} />
 
 
       </Routes>
