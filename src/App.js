@@ -8,6 +8,7 @@ import ExtendedSurvey from "./ExtendedSurvey"; // ⬅️ Add this
 import CalenderView from "./CalenderView";
 import Profile from "./profile";
 import AboutUs from "./AboutUs";
+import Articles from "./Articles";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/calendar" element={<CalenderView />} />
         <Route path="/profile" element={<Profile />} /> 
         <Route path="/about-us" element={<AboutUs/>} />
+        <Route path="/articles" element={<Articles/>} />
 
       </Routes>
     </Router>

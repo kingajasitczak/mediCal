@@ -27,7 +27,12 @@ export const SideMenu = ({ onClose }) => {
       >
 
       <div className="mb-4 text-lg font-medium">About Us</div></Link>
-      <div className="text-lg font-medium">Articles</div>
+      <Link
+        to="/articles" // Ścieżka zdefiniowana w App.jsx
+        onClick={onClose} // Opcjonalnie: zamknij menu po kliknięciu
+        className="mb-6 flex items-center gap-2 cursor-pointer hover:opacity-80"
+      >
+      <div className="text-lg font-medium">Articles</div></Link>
     </div>
   );
 };
