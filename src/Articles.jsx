@@ -1,11 +1,13 @@
-import { MenuIcon } from "lucide-react"; // Używam MenuIcon zgodnie z Twoim importem
-import React from "react"; // Możesz potrzebować useState dla funkcjonalności menu
+import { MenuIcon } from "lucide-react";
+import React from "react";
+import { Link } from "react-router-dom";
 
-// Dane artykułów
+// Dane artykułów - już zaktualizowane o path dla article ID 2
 const articlesData = [
   {
     id: 1,
     title: "5 Easy Habits for a Healthier Everyday Life",
+    path: "/article1", 
   },
   {
     id: 2,
@@ -14,6 +16,8 @@ const articlesData = [
   {
     id: 3,
     title: "Why Regular Checkups Matter More Than You Think",
+    path: "/article3",
+    // Brak 'path', więc będzie przyciskiem
   },
   {
     id: 4,
@@ -29,33 +33,29 @@ const articlesData = [
   },
 ];
 
-// Zmieniam nazwę komponentu dla lepszej semantyki
 export default function Articles() {
-  // const [showMenu, setShowMenu] = useState(false); // Odkomentuj dla funkcjonalności SideMenu
+  // const [showMenu, setShowMenu] = useState(false); 
 
-  const handleArticleClick = (articleId) => {
-    console.log("Clicked article with ID:", articleId);
-    // Tutaj w przyszłości dodasz logikę nawigacji lub otwierania artykułu
+  const handleOtherArticleClick = (articleId) => {
+    console.log("Clicked article (button fallback) ID:", articleId);
+    // Docelowo możesz chcieć nawigować nawet jeśli nie ma 'path', np. do strony "w budowie"
   };
 
   return (
-    // Usunięto zewnętrzny div z bg-white, ponieważ wewnętrzny div zajmuje cały ekran
     <div className="w-full min-h-screen relative [background:linear-gradient(to_bottom_right,rgba(140,217,255,1)_0%,rgba(0,38,57,1)_50%)_bottom_right_/_50%_50%_no-repeat,linear-gradient(to_bottom_left,rgba(140,217,255,1)_0%,rgba(0,38,57,1)_50%)_bottom_left_/_50%_50%_no-repeat,linear-gradient(to_top_left,rgba(140,217,255,1)_0%,rgba(0,38,57,1)_50%)_top_left_/_50%_50%_no-repeat,linear-gradient(to_top_right,rgba(140,217,255,1)_0%,rgba(0,38,57,1)_50%)_top_right_/_50%_50%_no-repeat]">
       
-      {/* Logo */}
       <div className="absolute top-6 left-6 sm:top-8 sm:left-8 z-20">
         <img
-          src="/MediCal.png" // Zakładam, że to jest właściwa ścieżka do logo
+          src="/MediCal.png"
           alt="MediCal Logo"
           className="w-[180px] sm:w-[200px] h-auto object-cover"
         />
       </div>
 
-      {/* Przycisk Menu */}
       <div className="absolute top-6 right-6 sm:top-8 sm:right-8 z-20">
         <button
           type="button"
-          // onClick={() => setShowMenu(true)} // Dla funkcjonalności SideMenu
+          // onClick={() => setShowMenu(true)}
           className="p-2 rounded-md text-white hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
           aria-label="Open menu"
         >
@@ -63,7 +63,6 @@ export default function Articles() {
         </button>
       </div>
 
-      {/* Główna treść strony - w normalnym przepływie dokumentu */}
       <div className="flex flex-col items-center pt-32 sm:pt-36 px-4 w-full">
         <h1 className="font-extrabold text-white text-5xl sm:text-[64px] text-center tracking-[0] leading-tight font-['Roboto-ExtraBold',Helvetica]">
           Articles
@@ -72,23 +71,40 @@ export default function Articles() {
           Find out some interesting facts about health and nutrition!
         </h2>
 
-        {/* Siatka artykułów */}
         <div className="w-full max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 px-4">
-          {articlesData.map((article) => (
-            <button
-              key={article.id}
-              type="button"
-              onClick={() => handleArticleClick(article.id)}
-              className="bg-white rounded-xl shadow-lg p-6 text-center min-h-[160px] h-full flex flex-col items-center justify-center group hover:shadow-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-transparent transition-all duration-300 ease-in-out"
-            >
-              <h3 className="font-['Roboto-Medium',Helvetica] font-semibold text-slate-800 text-lg md:text-xl group-hover:text-blue-600 transition-colors">
-                {article.title}
-              </h3>
-            </button>
-          ))}
+          {articlesData.map((article) => {
+            // Sprawdzamy, czy artykuł ma zdefiniowaną właściwość 'path'
+            if (article.path) { // ✨ ZMIANA LOGIKI TUTAJ
+              return (
+                <Link
+                  key={article.id}
+                  to={article.path} // Nawigacja do ścieżki zdefiniowanej w article.path
+                  className="block bg-white rounded-xl shadow-lg p-6 text-center min-h-[160px] h-full flex flex-col items-center justify-center group hover:shadow-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-transparent transition-all duration-300 ease-in-out"
+                >
+                  <h3 className="font-['Roboto-Medium',Helvetica] font-semibold text-slate-800 text-lg md:text-xl group-hover:text-blue-600 transition-colors">
+                    {article.title}
+                  </h3>
+                </Link>
+              );
+            } else {
+              // Dla artykułów bez zdefiniowanej ścieżki 'path' zostaje przycisk
+              return (
+                <button
+                  key={article.id}
+                  type="button"
+                  onClick={() => handleOtherArticleClick(article.id)}
+                  className="bg-white rounded-xl shadow-lg p-6 text-center min-h-[160px] h-full flex flex-col items-center justify-center group hover:shadow-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-transparent transition-all duration-300 ease-in-out"
+                >
+                  <h3 className="font-['Roboto-Medium',Helvetica] font-semibold text-slate-800 text-lg md:text-xl group-hover:text-blue-600 transition-colors">
+                    {article.title}
+                  </h3>
+                </button>
+              );
+            }
+          })}
         </div>
       </div>
-      <div className="pb-16"></div> {/* Dodatkowy padding na dole */}
+      <div className="pb-16"></div>
     </div>
   );
 }

@@ -9,6 +9,8 @@ import CalenderView from "./CalenderView";
 import Profile from "./profile";
 import AboutUs from "./AboutUs";
 import Articles from "./Articles";
+import Article1 from "./Article1";
+import Article3 from "./Article3";
 
 function App() {
   return (
@@ -23,6 +25,9 @@ function App() {
         <Route path="/profile" element={<Profile />} /> 
         <Route path="/about-us" element={<AboutUs/>} />
         <Route path="/articles" element={<Articles/>} />
+        <Route path="/article1" element={<Article1/>} />
+        <Route path="/article3" element={<Article3/>} />
+
 
       </Routes>
     </Router>
