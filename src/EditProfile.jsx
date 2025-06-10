@@ -1,53 +1,37 @@
 import { Mail, Menu, User } from "lucide-react";
-import React from "react";
-import { useNavigate } from "react-router-dom"; // Krok 1: Import useNavigate
+import React from "react"; // Assuming you also have useState if the Menu button opens SideMenu
 
-export default function Profile() {
-  const navigate = useNavigate(); // Krok 2: Inicjalizacja hooka
-
-  // Funkcja obsługująca kliknięcie przycisku "Edit"
-  const handleEditClick = () => {
-    navigate("/editprofile"); // Krok 3: Przekierowanie na stronę edycji
-  };
+export default function EditProfile() {
+  // const [showMenu, setShowMenu] = useState(false); // Uncomment if implementing SideMenu
 
   const formFields = [
     {
       id: "name",
-      label: "Your name",
+      label: "Your name", // Label visible above the field
       type: "text",
       icon: <User className="h-5 w-5 text-gray-500" />,
-      value: "Your name",
+      value: "Your name", // Placeholder or initial value
     },
-    {
-      id: "email",
-      label: "Your email",
-      type: "email",
-      icon: <Mail className="h-5 w-5 text-gray-500" />,
-      value: "Your email",
-    },
-    {
-      id: "joining",
-      label: "Date of joining",
-      type: "text",
-      icon: <User className="h-5 w-5 text-gray-500" />,
-      value: "Date of joining",
-    },
+    // Removed email and joining date fields to match the image
   ];
+
+  const handleSignUp = () => {
+    // You can add validation logic here later
+    navigate("/editprofile");
+  };
 
   return (
     <div className="bg-white flex flex-row justify-center w-full">
       <div className="w-full min-h-screen relative [background:linear-gradient(to_bottom_right,rgba(140,217,255,1)_0%,rgba(0,38,57,1)_50%)_bottom_right_/_50%_50%_no-repeat,linear-gradient(to_bottom_left,rgba(140,217,255,1)_0%,rgba(0,38,57,1)_50%)_bottom_left_/_50%_50%_no-repeat,linear-gradient(to_top_left,rgba(140,217,255,1)_0%,rgba(0,38,57,1)_50%)_top_left_/_50%_50%_no-repeat,linear-gradient(to_top_right,rgba(140,217,255,1)_0%,rgba(0,38,57,1)_50%)_top_right_/_50%_50%_no-repeat]">
+
         <div className="absolute top-6 left-6 sm:top-8 sm:left-8 z-20">
-          <img
-            src="/MediCal.png"
-            alt="MediCal Logo"
-            className="w-[180px] sm:w-[200px] h-auto"
-          />
+          <img src="/MediCal.png" alt="MediCal Logo" className="w-[180px] sm:w-[200px] h-auto" />
         </div>
 
         <div className="absolute top-6 right-6 sm:top-8 sm:right-8 z-20">
           <button
             type="button"
+            // onClick={() => setShowMenu(true)}
             className="p-2 rounded-md text-white hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
             aria-label="Open menu"
           >
@@ -57,10 +41,10 @@ export default function Profile() {
 
         <div className="flex flex-col items-center justify-start pt-32 sm:pt-36 px-4 w-full">
           <h1 className="text-white text-5xl sm:text-[64px] [font-family:'Roboto-ExtraBold',Helvetica] font-extrabold text-center leading-tight">
-            Your profile
+            Edit your profile
           </h1>
           <p className="[font-family:'Roboto-Light',Helvetica] font-light text-white text-2xl sm:text-4xl text-center mt-4 mb-12 sm:mb-16">
-            Check out your information here!
+            Change your information here
           </p>
 
           <div className="w-full max-w-lg bg-white/80 backdrop-blur-md rounded-xl shadow-2xl">
@@ -80,28 +64,44 @@ export default function Profile() {
                     <input
                       id={field.id}
                       type={field.type}
-                      value={field.value}
-                      readOnly
-                      className="h-[52px] w-full bg-slate-50/70 border border-slate-300 text-slate-800 rounded-lg pl-10 pr-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-shadow shadow-sm"
+                      defaultValue={field.value} // Use defaultValue for editable inputs
+                      className="h-[52px] w-full bg-slate-50/70 border border-slate-300 text-slate-800 rounded-lg pl-10 pr-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-shadow shadow-sm hover:shadow-md" // Removed readOnly and added hover:shadow-md
                     />
                   </div>
                 </div>
               ))}
             </div>
           </div>
-          {/* New Edit Button */}
-          <div className="mt-8 mb-12 sm:mt-12 sm:mb-16">
+
+          {/* "Click here to re-do the survey!" button */}
+          <div className="mt-8 mb-8">
             <button
               type="button"
-              onClick={handleEditClick} // Krok 4: Dodanie onClick
-              className="bg-gray-200 text-black font-bold py-3 px-12 rounded-full text-xl shadow-lg hover:bg-gray-300 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400/75"
+              className="bg-transparent text-white font-bold py-3 px-8 rounded-full text-lg border-2 border-white hover:bg-white hover:text-blue-900 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/75"
             >
-              Edit
+              Click here to re-do the survey!
+            </button>
+          </div>
+
+          {/* Cancel and Save buttons */}
+          <div className="flex justify-center space-x-6 mb-12 sm:mb-16">
+            <button
+              type="button"
+              className="bg-gray-200 text-black font-bold py-3 px-10 rounded-full text-xl shadow-lg hover:bg-gray-300 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400/75"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit" // Changed to type="submit" if this button will submit a form
+              className="bg-gray-200 text-black font-bold py-3 px-10 rounded-full text-xl shadow-lg hover:bg-gray-300 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400/75"
+            >
+              Save
             </button>
           </div>
         </div>
-        <div className="pb-16"></div>
+        <div className="pb-16"></div> {/* This div helps with bottom padding */}
       </div>
+      {/* {showMenu && <SideMenu onClose={() => setShowMenu(false)} />} */}
     </div>
   );
 }
