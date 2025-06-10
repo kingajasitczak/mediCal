@@ -1,11 +1,17 @@
 import React, { useState } from "react";
-import { ChevronLeft, ChevronRight, Download, Menu } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Download,
+  Menu,
+  Search, // 1. Import ikony Search
+} from "lucide-react";
 import { Kalendarz } from "./Kalendarz";
-import { SideMenu } from "./SideMenu"; 
+import { SideMenu } from "./SideMenu";
 
 export default function CalenderView() {
   const [showPopup, setShowPopup] = useState(false);
-  const [showMenu, setShowMenu] = useState(false); // ⬅️ NEW
+  const [showMenu, setShowMenu] = useState(false);
 
   const calendarData = [
     [
@@ -62,22 +68,30 @@ export default function CalenderView() {
   return (
     <div className="bg-white flex flex-row justify-center w-full">
       <div className="w-full min-h-screen relative [background:linear-gradient(to_bottom_right,rgba(140,217,255,1)_0%,rgba(0,38,57,1)_50%)_bottom_right_/_50%_50%_no-repeat,linear-gradient(to_bottom_left,rgba(140,217,255,1)_0%,rgba(0,38,57,1)_50%)_bottom_left_/_50%_50%_no-repeat,linear-gradient(to_top_left,rgba(140,217,255,1)_0%,rgba(0,38,57,1)_50%)_top_left_/_50%_50%_no-repeat,linear-gradient(to_top_right,rgba(140,217,255,1)_0%,rgba(0,38,57,1)_50%)_top_right_/_50%_50%_no-repeat]">
-        
         {/* Logo */}
         <div className="absolute w-[239px] h-[193px] top-0 left-0">
-          <img className="w-full h-full object-cover" alt="Medical" src="/MediCal.png" />
+          <img
+            className="w-full h-full object-cover"
+            alt="Medical"
+            src="/MediCal.png"
+          />
         </div>
 
         {/* Menu Icon */}
         <div className="absolute top-10 right-10">
-          <button className="text-white h-auto" onClick={() => setShowMenu(true)}>
+          <button
+            className="text-white h-auto"
+            onClick={() => setShowMenu(true)}
+          >
             <Menu className="w-10 h-10" />
           </button>
         </div>
 
         {/* Header */}
         <header className="pt-36 flex flex-col items-center">
-          <h1 className="font-extrabold text-white text-[64px] text-center">Here it is!</h1>
+          <h1 className="font-extrabold text-white text-[64px] text-center">
+            Here it is!
+          </h1>
           <p className="font-light text-white text-4xl text-center mt-4">
             Your personalised medical checkup schedule!
           </p>
@@ -94,6 +108,16 @@ export default function CalenderView() {
               <ChevronRight className="w-6 h-6 text-[#022c42]" />
             </button>
           </div>
+        </div>
+
+        {/* Find nearest check-up button */}
+        <div className="absolute top-[355px] left-[120px] flex items-center">
+          <button className="text-white p-0 h-auto flex items-center gap-1">
+            <Search className="w-6 h-6" /> {/* 2. Dodanie ikony do przycisku */}
+            <span className="font-medium text-white text-2xl">
+              Find nearest check-up
+            </span>
+          </button>
         </div>
 
         {/* Export button */}
@@ -116,12 +140,16 @@ export default function CalenderView() {
                         <div
                           key={`day-${weekIndex}-${dayIndex}`}
                           className={`relative p-2 min-h-[100px] rounded-xl shadow-md ${
-                            day.isHighlighted ? "bg-blue-100" : "bg-[#edf1f5]"
+                            day.isHighlighted
+                              ? "bg-blue-100"
+                              : "bg-[#edf1f5]"
                           }`}
                         >
                           <span
                             className={`absolute top-1 left-1 text-sm font-semibold ${
-                              day.isOutsideMonth ? "text-gray-400" : "text-black"
+                              day.isOutsideMonth
+                                ? "text-gray-400"
+                                : "text-black"
                             }`}
                           >
                             {day.day}
@@ -129,7 +157,9 @@ export default function CalenderView() {
                           <div className="flex justify-center">
                             <span
                               className={`text-sm font-semibold ${
-                                day.isOutsideMonth ? "text-gray-400" : "text-black"
+                                day.isOutsideMonth
+                                  ? "text-gray-400"
+                                  : "text-black"
                               }`}
                             >
                               {day.dayName}
@@ -143,7 +173,9 @@ export default function CalenderView() {
                             >
                               <span>
                                 CBC (Complete Blood Count){" "}
-                                <span className="font-bold hover:underline">+ 2</span>
+                                <span className="font-bold hover:underline">
+                                  + 2
+                                </span>
                               </span>
                             </button>
                           )}

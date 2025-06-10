@@ -13,6 +13,7 @@ import Article1 from "./Article1";
 import Article3 from "./Article3";
 import Article2 from "./Article2";
 import EditProfile from "./EditProfile";
+import RecommendedScreenings from "./Recommendation";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
         <Route path="/article3" element={<Article3/>} />
         <Route path="/article2" element={<Article2/>} />
         <Route path="/editprofile" element={<EditProfile/>} />
+        <Route path="/recc" element={<RecommendedScreenings/>} />
 
 
       </Routes>
