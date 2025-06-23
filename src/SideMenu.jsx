@@ -44,6 +44,15 @@ export const SideMenu = ({ onClose }) => {
          <div className="w-3 h-3 rounded-full bg-white" />
         <span className="text-lg font-medium">Articles</span>
       </Link>
+
+      <Link
+        to="/rewards" // Ścieżka do rekomendacji
+        onClick={onClose}
+        className="mb-6 flex items-center gap-2 cursor-pointer hover:opacity-80"
+      >
+        <div className="w-3 h-3 rounded-full bg-white" />
+        <span className="text-lg font-medium">Rewards</span>
+      </Link>
     </div>
   );
 };

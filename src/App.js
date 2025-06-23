@@ -14,6 +14,7 @@ import Article3 from "./Article3";
 import Article2 from "./Article2";
 import EditProfile from "./EditProfile";
 import RecommendedScreenings from "./Recommendation";
+import Rewards from "./nagrody";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
         <Route path="/article2" element={<Article2/>} />
         <Route path="/editprofile" element={<EditProfile/>} />
         <Route path="/recc" element={<RecommendedScreenings/>} />
+        <Route path="/rewards" element={<Rewards/>} />
 
 
       </Routes>
